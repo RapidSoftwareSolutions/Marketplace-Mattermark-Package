@@ -1,0 +1,1039 @@
+{
+    "package": "Mattermark",
+    "tagline": "Mattermark API",
+    "description": "Research the Companies & Employees Who Matter Most.Get actionable insights by syncing over 80 informative fields to help warm leads and power conversations from first touch to deal close. Get all the relevant information from inside Salesforce, and apply triggers and actions to any lead, opportunity, or other object.",
+    "image": "https:\/\/logo.clearbit.com\/\/mattermark.com",
+    "repo": "https:\/\/github.com\/RapidSoftwareSolutions\/Marketplace-Mattermark-Package",
+    "keywords": [
+        "API",
+        "Company",
+        "Employees",
+        "Contact"
+    ],
+    "accounts": {
+        "domain": "mattermark.com",
+        "credentials": [
+            "apiKey"
+        ]
+    },
+    "steps": [
+        "Register on the https:\/\/mattermark.com",
+        "After registration , you can obtain your API key from your API settings page https:\/\/mattermark.com\/app\/account\/api"
+    ],
+    "blocks": [
+        {
+            "name": "getCompaniesBySearchQuery",
+            "description": "The search endpoint can be used to query for a company based on a keyword you define, and is also useful to provide autocompletion for common queries, such as by company name or domain.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "searchQuery",
+                    "type": "String",
+                    "info": "The term to query by.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/search?object_types=company&term={$data['searchQuery']}",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getInvestorsBySearchQuery",
+            "description": "The search endpoint can be used to query for a investors based on a keyword you define.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "searchQuery",
+                    "type": "String",
+                    "info": "The term to query by.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/search?object_types=investor&term={$data['searchQuery']}",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCompaniesList",
+            "description": "The company list allows you to retrieve all companies, or a list of companies filtered by one or many parameters.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "domain",
+                    "type": "String",
+                    "info": "The domain of the company\u2019s website.",
+                    "required": false
+                },
+                {
+                    "name": "companyName",
+                    "type": "String",
+                    "info": "The company\u2019s name.",
+                    "required": false
+                },
+                {
+                    "name": "companyName",
+                    "type": "String",
+                    "info": "The company\u2019s name.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "company_name"
+                    }
+                },
+                {
+                    "name": "startAddedDate",
+                    "type": "DatePicker",
+                    "info": "The date the company started being tracked by Mattermark. ",
+                    "required": false
+                },
+                {
+                    "name": "endAddedDate",
+                    "type": "DatePicker",
+                    "info": "The date the company ended being tracked by Mattermark. ",
+                    "required": false
+                },
+                {
+                    "name": "mattermarkScore",
+                    "type": "String",
+                    "info": "The current Mattermark score of the company.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "mattermark_score"
+                    }
+                },
+                {
+                    "name": "momentumScore",
+                    "type": "String",
+                    "info": "The latest weekly momentum score of the company.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "momentum_score"
+                    }
+                },
+                {
+                    "name": "employees",
+                    "type": "String",
+                    "info": "The number of employees currently at the company.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "employees"
+                    }
+                },
+                {
+                    "name": "employeesMonthAgo",
+                    "type": "String",
+                    "info": "Count of employees one month ago.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "employees_month_ago"
+                    }
+                },
+                {
+                    "name": "employeesAddedInMonth",
+                    "type": "String",
+                    "info": "Count of employees added this month.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "employees_added_in_month"
+                    }
+                },
+                {
+                    "name": "employeesMom",
+                    "type": "String",
+                    "info": "The percent employee growth during that month.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "employees_mom"
+                    }
+                },
+                {
+                    "name": "cachedUniques",
+                    "type": "String",
+                    "info": "The estimated monthly unique visitors to the company\u2019s website.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "cached_uniques"
+                    }
+                },
+                {
+                    "name": "cachedUniquesWeekAgo",
+                    "type": "String",
+                    "info": "The estimated monthly unique visitors to the company\u2019s website during the past 7 days.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "cached_uniques_week_ago"
+                    }
+                },
+                {
+                    "name": "uniquesWow",
+                    "type": "String",
+                    "info": "The percent change in the estimated monthly unique visitors to the company\u2019s website in the past 7 days.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "uniques_wow"
+                    }
+                },
+                {
+                    "name": "cachedUniquesMonthAgo",
+                    "type": "String",
+                    "info": "The estimated monthly unique visitors to the company\u2019s website during the past month.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "cached_uniques_month_ago"
+                    }
+                },
+                {
+                    "name": "uniquesMom",
+                    "type": "String",
+                    "info": "The percent change in the estimated monthly unique visitors to the company\u2019s website in the past month.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "uniques_mom"
+                    }
+                },
+                {
+                    "name": "cachedMobileDownloads",
+                    "type": "String",
+                    "info": "The estimated monthly mobile downloads from the U.S. iTunes app store.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "cached_mobile_downloads"
+                    }
+                },
+                {
+                    "name": "cachedMobileDownloadsWeekAgo",
+                    "type": "String",
+                    "info": "The estimated monthly mobile downloads one week ago from the U.S. iTunes app store.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "cached_mobile_downloads_week_ago"
+                    }
+                },
+                {
+                    "name": "mobileDownloadsWow",
+                    "type": "String",
+                    "info": "The change in the estimated monthly mobile downloads from the U.S. iTunes app store during the past week.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "mobile_downloads_wow"
+                    }
+                },
+                {
+                    "name": "cachedMobileDownloadsMonthAgo",
+                    "type": "String",
+                    "info": "The count of the estimated monthly mobile downloads from the U.S. iTunes app store during the past month.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "cached_mobile_downloads_month_ago"
+                    }
+                },
+                {
+                    "name": "mobileDownloadsMom",
+                    "type": "String",
+                    "info": "The growth of the estimated monthly mobile downloads from the U.S. iTunes app store during the past month.Numeric range.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "mobile_downloads_mom"
+                    }
+                },
+                {
+                    "name": "estFoundingDates",
+                    "type": "List",
+                    "structure": {
+                        "name": "date",
+                        "type": "Select",
+                        "options": [
+                            "within 3 months",
+                            "within 6 months",
+                            "within 9 months",
+                            "within 1 year",
+                            "within 2 years",
+                            "within 3 years",
+                            "within 5 years",
+                            "within 10 years"
+                        ],
+                        "info": "Single date."
+                    },
+                    "info": "The estimated founding date of the company.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "est_founding_date",
+                        "format": "toString:{|}"
+                    }
+                },
+                {
+                    "name": "stages",
+                    "type": "List",
+                    "structure": {
+                        "name": "stage",
+                        "type": "Select",
+                        "options": [
+                            "Unknown",
+                            "No Known Funding",
+                            "Pre Series A",
+                            "a",
+                            "b",
+                            "c",
+                            "d",
+                            "e",
+                            "f",
+                            "g",
+                            "h",
+                            "i",
+                            "Late",
+                            "Exited"
+                        ],
+                        "info": "Single stage."
+                    },
+                    "info": "The most recent funding round for the company.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "stage",
+                        "format": "toString:{|}"
+                    }
+                },
+                {
+                    "name": "hasGooglePlay",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Companies that have a Google Play application.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "has_google_play"
+                    }
+                },
+                {
+                    "name": "hasItunes",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Companies that have an iTunes application.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "has_itunes"
+                    }
+                },
+                {
+                    "name": "playCategory",
+                    "type": "List",
+                    "structure": {
+                        "name": "category",
+                        "type": "String",
+                        "info": "Single category."
+                    },
+                    "info": "The Google Play store categories of applications associated with the company.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "play_category"
+                    }
+                },
+                {
+                    "name": "itunesCategory",
+                    "type": "List",
+                    "structure": {
+                        "name": "category",
+                        "type": "String",
+                        "info": "Single category."
+                    },
+                    "info": "The iTunes store categories of applications associated with the company.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "itunes_category"
+                    }
+                },
+                {
+                    "name": "businessModels",
+                    "type": "List",
+                    "structure": {
+                        "name": "model",
+                        "type": "String",
+                        "info": "Single model."
+                    },
+                    "info": "The business models employed by the company to generate revenue.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "business_models"
+                    }
+                },
+                {
+                    "name": "industries",
+                    "type": "List",
+                    "structure": {
+                        "name": "industry",
+                        "type": "String",
+                        "info": "Single industry."
+                    },
+                    "info": "The industries the company operates within.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "industries"
+                    }
+                },
+                {
+                    "name": "keywords",
+                    "type": "List",
+                    "structure": {
+                        "name": "keyword",
+                        "type": "String",
+                        "info": "Single keyword."
+                    },
+                    "info": "Keywords associated with the company.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "keywords"
+                    }
+                },
+                {
+                    "name": "page",
+                    "type": "Number",
+                    "info": "The page of items from the result set to return.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "page"
+                    }
+                },
+                {
+                    "name": "perPage",
+                    "type": "Number",
+                    "info": "The numbers of items to return per page.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "per_page"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/companies",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "domain",
+                            "company_name",
+                            "added_date",
+                            "mattermark_score",
+                            "momentum_score",
+                            "employees",
+                            "employees_month_ago",
+                            "employees_added_in_month",
+                            "employees_mom",
+                            "cached_uniques",
+                            "cached_uniques_week_ago",
+                            "uniques_wow",
+                            "cached_uniques_month_ago",
+                            "uniques_mom",
+                            "cached_mobile_downloads",
+                            "cached_mobile_downloads_week_ago",
+                            "mobile_downloads_wow",
+                            "cached_mobile_downloads_month_ago",
+                            "mobile_downloads_mom",
+                            "est_founding_date",
+                            "stage",
+                            "investors",
+                            "total_funding",
+                            "last_funding_date",
+                            "last_funding_amount",
+                            "location",
+                            "state",
+                            "has_google_play",
+                            "has_itunes",
+                            "play_category",
+                            "itunes_category",
+                            "business_models",
+                            "industries",
+                            "keywords",
+                            "page",
+                            "per_page"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCompany",
+            "description": "Retrieve a specific company.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "companyId",
+                    "type": "String",
+                    "info": "Id of the company.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/companies\/{$data['companyId']}",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCompanyNews",
+            "description": "The company stories endpoint retrieves the 50 latest news articles about the specified company.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "companyId",
+                    "type": "String",
+                    "info": "Id of the company.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/companies\/{$data['companyId']}\/stories",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getSimilarCompanies",
+            "description": "The similar companies endpoint returns up to 20 of the most similar companies ordered related to the specified company.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "companyId",
+                    "type": "String",
+                    "info": "Id of the company.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/companies\/{$data['companyId']}\/similar",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCompanyEmployees",
+            "description": "This endpoint allows you to retrieve key personnel for a specific company in our database.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "companyId",
+                    "type": "String",
+                    "info": "Id of the company.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/companies\/{$data['companyId']}\/people",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCompanyEmployeeInfo",
+            "description": "This endpoint allows you to retrieve contact information for a specific person at a company.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "companyId",
+                    "type": "String",
+                    "info": "Id of the company.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/companies\/{$data['companyId']}\/contact",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getListOfFundingEvents",
+            "description": "Retrieve a list of funding events for a specific query.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "amount",
+                    "type": "Number",
+                    "info": "money reported raised in the funding round.",
+                    "required": false
+                },
+                {
+                    "name": "cities",
+                    "type": "List",
+                    "structure": {
+                        "name": "city",
+                        "type": "String",
+                        "info": "Single city."
+                    },
+                    "info": "Pipe separated list of city names.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "city",
+                        "format": "toString:{|}"
+                    }
+                },
+                {
+                    "name": "countries",
+                    "type": "List",
+                    "structure": {
+                        "name": "countryCode",
+                        "type": "String",
+                        "info": "Single country code."
+                    },
+                    "info": "List of three character country codes.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "country",
+                        "format": "toString:{|}"
+                    }
+                },
+                {
+                    "name": "startFundingDate",
+                    "type": "DatePicker",
+                    "info": "Start funding date.",
+                    "required": false
+                },
+                {
+                    "name": "endFundingDate",
+                    "type": "DatePicker",
+                    "info": "End funding date.",
+                    "required": false
+                },
+                {
+                    "name": "investorIds",
+                    "type": "List",
+                    "structure": {
+                        "name": "investorId",
+                        "type": "String",
+                        "info": "Single investor id."
+                    },
+                    "info": "List of investor ids.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "investor_ids"
+                    }
+                },
+                {
+                    "name": "investorSlugs",
+                    "type": "List",
+                    "structure": {
+                        "name": "investorSlug",
+                        "type": "String",
+                        "info": "Single investor slug."
+                    },
+                    "info": "List of investor slugs, see Investors to get a list of all investors.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "investor_slugs"
+                    }
+                },
+                {
+                    "name": "series",
+                    "type": "Select",
+                    "options": [
+                        "a",
+                        "b",
+                        "c",
+                        "d",
+                        "e",
+                        "f",
+                        "g",
+                        "h",
+                        "i",
+                        "angel",
+                        "seed",
+                        "debt_financing",
+                        "private_equity",
+                        "undisclosed"
+                    ],
+                    "info": "End funding date.",
+                    "required": false
+                },
+                {
+                    "name": "page",
+                    "type": "Number",
+                    "info": "The page of items from the result set to return.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "page"
+                    }
+                },
+                {
+                    "name": "perPage",
+                    "type": "Number",
+                    "info": "The numbers of items to return per page.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "per_page"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/fundings",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "amount",
+                            "city",
+                            "country",
+                            "funding_date_range",
+                            "investor_ids",
+                            "investor_slugs",
+                            "series",
+                            "page",
+                            "per_page"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getInvestor",
+            "description": "Returns details for a specific investor. Information includes the size of their portfolio and some stats around their portfolio and funding deals.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "investorId",
+                    "type": "String",
+                    "info": "The ID of the investor to retrieve.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/investors\/{$data['investorId']}",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getInvestorPortfolioCompanies",
+            "description": "Returns a list of portfolio companies for a specific investor.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "investorId",
+                    "type": "String",
+                    "info": "The ID of the investor to retrieve.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/investors\/{$data['investorId']}\/portfolio",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getInvestorByComplexQuery",
+            "description": "Returns a list of investors matching the MSFL query. The Mattermark Semantic Filter Language allows you to perform a complex query in a single request.See more in readme.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                },
+                {
+                    "name": "dataset",
+                    "type": "Select",
+                    "options": [
+                        "investors"
+                    ],
+                    "info": "Select of the dataset.",
+                    "required": true
+                },
+                {
+                    "name": "filter",
+                    "type": "JSON",
+                    "info": "Json filter object.",
+                    "required": false
+                },
+                {
+                    "name": "sort",
+                    "type": "JSON",
+                    "info": "Json sort object.",
+                    "required": false
+                },
+                {
+                    "name": "page",
+                    "type": "Number",
+                    "info": "The page of items from the result set to return.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "page"
+                    }
+                },
+                {
+                    "name": "perPage",
+                    "type": "Number",
+                    "info": "The numbers of items to return per page.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "per_page"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/queries",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "json",
+                        "parameters": [
+                            "dataset",
+                            "filter",
+                            "sort",
+                            "page",
+                            "per_page"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getQuota",
+            "description": "Returns a count of how many API requests you have left in the current period.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your api key.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.mattermark.com\/ratelimit\/quota",
+                "headers": {
+                    "Authorization": "Bearer {$data['apiKey']}"
+                },
+                "method": "get",
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
