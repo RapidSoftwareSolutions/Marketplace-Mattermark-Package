@@ -671,10 +671,16 @@
                     "type": "String",
                     "info": "Id of the company.",
                     "required": true
+                },
+                {
+                    "name": "fullName",
+                    "type": "String",
+                    "info": "The full name of the individual to find contact information for.",
+                    "required": true
                 }
             ],
             "vendorRequest": {
-                "url": "https:\/\/api.mattermark.com\/companies\/{$data['companyId']}\/contact",
+                "url": "https:\/\/api.mattermark.com\/companies\/{$data['companyId']}\/contact?full_name={$data['fullName']}",
                 "headers": {
                     "Authorization": "Bearer {$data['apiKey']}"
                 },

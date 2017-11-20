@@ -13,12 +13,14 @@ $app->post('/api/Mattermark/getCompaniesList', function ($request, $response) {
     }
 
     $requiredParams = ['apiKey'=>'apiKey'];
-    $optionalParams = ['domain'=>'domain','companyName'=>'companyName','companyName'=>'company_name','startAddedDate'=>'startAddedDate','endAddedDate'=>'endAddedDate','mattermarkScore'=>'mattermark_score','momentumScore'=>'momentum_score','employees'=>'employees','employeesMonthAgo'=>'employees_month_ago','employeesAddedInMonth'=>'employees_added_in_month','employeesMom'=>'employees_mom','cachedUniques'=>'cached_uniques','cachedUniquesWeekAgo'=>'cached_uniques_week_ago','uniquesWow'=>'uniques_wow','cachedUniquesMonthAgo'=>'cached_uniques_month_ago','uniquesMom'=>'uniques_mom','cachedMobileDownloads'=>'cached_mobile_downloads','cachedMobileDownloadsWeekAgo'=>'cached_mobile_downloads_week_ago','mobileDownloadsWow'=>'mobile_downloads_wow','cachedMobileDownloadsMonthAgo'=>'cached_mobile_downloads_month_ago','mobileDownloadsMom'=>'mobile_downloads_mom','estFoundingDates'=>'est_founding_date','stages'=>'stage','hasGooglePlay'=>'has_google_play','hasItunes'=>'has_itunes','playCategory'=>'play_category','itunesCategory'=>'itunes_category','businessModels'=>'business_models','industries'=>'industries','keywords'=>'keywords','page'=>'page','perPage'=>'per_page'];
+    $optionalParams = ['location' => 'location','startAddedDate'=>'startAddedDate','endAddedDate'=>'endAddedDate','domain'=>'domain','companyName'=>'companyName','companyName'=>'company_name','startAddedDate'=>'startAddedDate','endAddedDate'=>'endAddedDate','mattermarkScore'=>'mattermark_score','momentumScore'=>'momentum_score','employees'=>'employees','employeesMonthAgo'=>'employees_month_ago','employeesAddedInMonth'=>'employees_added_in_month','employeesMom'=>'employees_mom','cachedUniques'=>'cached_uniques','cachedUniquesWeekAgo'=>'cached_uniques_week_ago','uniquesWow'=>'uniques_wow','cachedUniquesMonthAgo'=>'cached_uniques_month_ago','uniquesMom'=>'uniques_mom','cachedMobileDownloads'=>'cached_mobile_downloads','cachedMobileDownloadsWeekAgo'=>'cached_mobile_downloads_week_ago','mobileDownloadsWow'=>'mobile_downloads_wow','cachedMobileDownloadsMonthAgo'=>'cached_mobile_downloads_month_ago','mobileDownloadsMom'=>'mobile_downloads_mom','estFoundingDates'=>'est_founding_date','stages'=>'stage','hasGooglePlay'=>'has_google_play','hasItunes'=>'has_itunes','playCategory'=>'play_category','itunesCategory'=>'itunes_category','businessModels'=>'business_models','industries'=>'industries','keywords'=>'keywords','page'=>'page','perPage'=>'per_page'];
     $bodyParams = [
        'query' => ['domain','company_name','added_date','mattermark_score','momentum_score','employees','employees_month_ago','employees_added_in_month','employees_mom','cached_uniques','cached_uniques_week_ago','uniques_wow','cached_uniques_month_ago','uniques_mom','cached_mobile_downloads','cached_mobile_downloads_week_ago','mobile_downloads_wow','cached_mobile_downloads_month_ago','mobile_downloads_mom','est_founding_date','stage','investors','total_funding','last_funding_date','last_funding_amount','location','state','has_google_play','has_itunes','play_category','itunes_category','business_models','industries','keywords','page','per_page']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
+
+    $exValue = ["location","state","play_category","itunes_category","business_models","industries","keywords"];
 
     if(!empty($data['est_founding_date']))
     {
@@ -31,13 +33,42 @@ $app->post('/api/Mattermark/getCompaniesList', function ($request, $response) {
     }
 
     $client = $this->httpClient;
-    $query_str = "https://api.mattermark.com/companies";
+    $query_str = "https://api.mattermark.com/companies?";
 
-    
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Authorization"=>"Bearer {$data['apiKey']}"];
-     
+
+    if(!empty($data['startAddedDate']) && empty($data['endAddedDate']))
+    {
+        $requestParams['query']['added_date'] = $data['startAddedDate'];
+    }
+
+    if(!empty($data['startAddedDate']) && !empty($data['endAddedDate']))
+    {
+        $requestParams['query']['added_date'] = $data['startAddedDate'].'~'.$data['endAddedDate'];
+    }
+
+    foreach($requestParams['query'] as $key => $value)
+    {
+        if(in_array($key,$exValue))
+        {
+            foreach($value as $param)
+            {
+                $query_str .= '&'.$key.'='.$param;
+            }
+            continue;
+        }
+
+        $query_str .= '&'.$key.'='.$value;
+    }
+
+    if(!empty($requestParams['query']))
+    {
+        unset($requestParams['query']);
+    }
+
+
 
     try {
         $resp = $client->get($query_str, $requestParams);

@@ -4,7 +4,7 @@ $app->post('/api/Mattermark/getCompanyEmployeeInfo', function ($request, $respon
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['apiKey','companyId']);
+    $validateRes = $checkRequest->validate($request, ['apiKey','companyId','fullName']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,9 +12,10 @@ $app->post('/api/Mattermark/getCompanyEmployeeInfo', function ($request, $respon
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['apiKey'=>'apiKey','companyId'=>'companyId'];
+    $requiredParams = ['apiKey'=>'apiKey','companyId'=>'companyId','fullName' => 'full_name'];
     $optionalParams = [];
     $bodyParams = [
+        'query' => ['full_name']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
