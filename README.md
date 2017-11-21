@@ -42,7 +42,6 @@ The company list allows you to retrieve all companies, or a list of companies fi
 | apiKey                       | credentials| Your api key.
 | domain                       | String     | The domain of the company’s website.
 | companyName                  | String     | The company’s name.
-| companyName                  | String     | The company’s name.
 | startAddedDate               | DatePicker | The date the company started being tracked by Mattermark. 
 | endAddedDate                 | DatePicker | The date the company ended being tracked by Mattermark. 
 | mattermarkScore              | String     | The current Mattermark score of the company.Numeric range.
@@ -112,6 +111,7 @@ This endpoint allows you to retrieve contact information for a specific person a
 |----------|------------|----------
 | apiKey   | credentials| Your api key.
 | companyId| String     | Id of the company.
+| fullName| String     | The full name of the individual to find contact information for.
 
 ## Mattermark.getListOfFundingEvents
 Retrieve a list of funding events for a specific query.
@@ -147,7 +147,7 @@ Returns a list of portfolio companies for a specific investor.
 | investorId| String     | The ID of the investor to retrieve.
 
 ## Mattermark.getInvestorByComplexQuery
-Returns a list of investors matching the MSFL query. The Mattermark Semantic Filter Language allows you to perform a complex query in a single request.See more in readme.
+Returns a list of investors matching the MSFL query. The Mattermark Semantic Filter Language allows you to perform a complex query in a single request.See more [here](https://docs.mattermark.com/api_v1/queries/index.html)
 
 | Field  | Type       | Description
 |--------|------------|----------
@@ -157,4 +157,13 @@ Returns a list of investors matching the MSFL query. The Mattermark Semantic Fil
 | sort   | JSON       | Json sort object.
 | page   | Number     | The page of items from the result set to return.
 | perPage| Number     | The numbers of items to return per page.
+
+##### Example for filter field
+```
+{ "portfolio_size":{"gte":100}}
+```
+##### Example for sor field
+```
+{ "portfolio_size":{"gte":100}}
+```
 

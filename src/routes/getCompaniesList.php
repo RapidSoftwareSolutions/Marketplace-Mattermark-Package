@@ -32,6 +32,27 @@ $app->post('/api/Mattermark/getCompaniesList', function ($request, $response) {
         $data['stage'] = \Models\Params::toString($data['stage'], '|');
     }
 
+    if(!empty($data['hasGooglePlay']))
+    {
+        if($data['hasGooglePlay'] == 'true')
+        {
+            $data['hasGooglePlay'] = 1;
+        } else {
+            $data['hasGooglePlay'] = 0;
+        }
+    }
+
+    if(!empty($data['hasItunes']))
+    {
+        if($data['hasItunes'] == 'true')
+        {
+            $data['hasItunes'] = 1;
+        } else {
+            $data['hasItunes'] = 0;
+        }
+    }
+
+
     $client = $this->httpClient;
     $query_str = "https://api.mattermark.com/companies?";
 

@@ -113,12 +113,6 @@
                     "name": "companyName",
                     "type": "String",
                     "info": "The company\u2019s name.",
-                    "required": false
-                },
-                {
-                    "name": "companyName",
-                    "type": "String",
-                    "info": "The company\u2019s name.",
                     "required": false,
                     "vendorSchema": {
                         "name": "company_name"

@@ -35,9 +35,8 @@ $app->post('/api/Mattermark/getListOfFundingEvents', function ($request, $respon
 
 
     $client = $this->httpClient;
-    $query_str = "https://api.mattermark.com/fundings";
+    $query_str = "https://api.mattermark.com/fundings?";
 
-    
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Authorization"=>"Bearer {$data['apiKey']}"];
@@ -63,8 +62,6 @@ $app->post('/api/Mattermark/getListOfFundingEvents', function ($request, $respon
             unset($requestParams['query']);
         }
     }
-
-
 
 
 
