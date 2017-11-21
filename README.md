@@ -158,10 +158,3 @@ Returns a list of investors matching the MSFL query. The Mattermark Semantic Fil
 | page   | Number     | The page of items from the result set to return.
 | perPage| Number     | The numbers of items to return per page.
 
-## Mattermark.getQuota
-Returns a count of how many API requests you have left in the current period.
-
-| Field | Type       | Description
-|-------|------------|----------
-| apiKey| credentials| Your api key.
-

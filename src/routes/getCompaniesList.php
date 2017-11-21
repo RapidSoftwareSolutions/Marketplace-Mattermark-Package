@@ -49,23 +49,27 @@ $app->post('/api/Mattermark/getCompaniesList', function ($request, $response) {
         $requestParams['query']['added_date'] = $data['startAddedDate'].'~'.$data['endAddedDate'];
     }
 
-    foreach($requestParams['query'] as $key => $value)
-    {
-        if(in_array($key,$exValue))
-        {
-            foreach($value as $param)
-            {
-                $query_str .= '&'.$key.'='.$param;
-            }
-            continue;
-        }
-
-        $query_str .= '&'.$key.'='.$value;
-    }
-
     if(!empty($requestParams['query']))
     {
-        unset($requestParams['query']);
+        foreach($requestParams['query'] as $key => $value)
+        {
+            if(in_array($key,$exValue))
+            {
+                foreach($value as $param)
+                {
+                    $query_str .= '&'.$key.'='.$param;
+                }
+                continue;
+            }
+
+            $query_str .= '&'.$key.'='.$value;
+        }
+
+        if(!empty($requestParams['query']))
+        {
+            unset($requestParams['query']);
+        }
+
     }
 
 

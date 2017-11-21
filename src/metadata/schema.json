@@ -1010,36 +1010,6 @@
                     "info": "Success"
                 }
             ]
-        },
-        {
-            "name": "getQuota",
-            "description": "Returns a count of how many API requests you have left in the current period.",
-            "args": [
-                {
-                    "name": "apiKey",
-                    "type": "credentials",
-                    "info": "Your api key.",
-                    "required": true
-                }
-            ],
-            "vendorRequest": {
-                "url": "https:\/\/api.mattermark.com\/ratelimit\/quota",
-                "headers": {
-                    "Authorization": "Bearer {$data['apiKey']}"
-                },
-                "method": "get",
-                "requestParameters": []
-            },
-            "callbacks": [
-                {
-                    "name": "error",
-                    "info": "Error"
-                },
-                {
-                    "name": "success",
-                    "info": "Success"
-                }
-            ]
         }
     ]
 }
