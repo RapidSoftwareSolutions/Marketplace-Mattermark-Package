@@ -162,8 +162,8 @@ Returns a list of investors matching the MSFL query. The Mattermark Semantic Fil
 ```
 { "portfolio_size":{"gte":100}}
 ```
-##### Example for sor field
+##### Example for sort field
 ```
-{ "portfolio_size":{"gte":100}}
+[{"name":"desc"}]
 ```
 

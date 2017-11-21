@@ -32,23 +32,23 @@ $app->post('/api/Mattermark/getCompaniesList', function ($request, $response) {
         $data['stage'] = \Models\Params::toString($data['stage'], '|');
     }
 
-    if(!empty($data['hasGooglePlay']))
+    if(!empty($data['has_google_play']))
     {
-        if($data['hasGooglePlay'] == 'true')
+        if($data['has_google_play'] == 'true')
         {
-            $data['hasGooglePlay'] = 1;
+            $data['has_google_play'] = 1;
         } else {
-            $data['hasGooglePlay'] = 0;
+            $data['has_google_play'] = 0;
         }
     }
 
-    if(!empty($data['hasItunes']))
+    if(!empty($data['has_itunes']))
     {
-        if($data['hasItunes'] == 'true')
+        if($data['has_itunes'] == 'true')
         {
-            $data['hasItunes'] = 1;
+            $data['has_itunes'] = 1;
         } else {
-            $data['hasItunes'] = 0;
+            $data['has_itunes'] = 0;
         }
     }
 
