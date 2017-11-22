@@ -34,9 +34,20 @@ $app->post('/api/Mattermark/getListOfFundingEvents', function ($request, $respon
     }
 
 
+
+
     $client = $this->httpClient;
     $query_str = "https://api.mattermark.com/fundings?";
 
+    if(!empty($data['startFundingDate']) && empty($data['endFundingDate']))
+    {
+        $query_str .= 'funding_date_range='.$data['startFundingDate'].'&';
+    }
+
+    if(!empty($data['startFundingDate']) && !empty($data['endFundingDate']))
+    {
+        $query_str .= 'funding_date_range='.$data['startFundingDate'].'~'.$data['endFundingDate'].'&';
+    }
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Authorization"=>"Bearer {$data['apiKey']}"];

@@ -43,7 +43,7 @@ The company list allows you to retrieve all companies, or a list of companies fi
 | domain                       | String     | The domain of the company’s website.
 | companyName                  | String     | The company’s name.
 | startAddedDate               | DatePicker | The date the company started being tracked by Mattermark. 
-| endAddedDate                 | DatePicker | The date the company ended being tracked by Mattermark. 
+| endAddedDate                 | DatePicker | The date the company ended being tracked by Mattermark.
 | mattermarkScore              | String     | The current Mattermark score of the company.Numeric range.
 | momentumScore                | String     | The latest weekly momentum score of the company.Numeric range.
 | employees                    | String     | The number of employees currently at the company.Numeric range.
@@ -123,10 +123,10 @@ Retrieve a list of funding events for a specific query.
 | cities          | List       | Pipe separated list of city names.
 | countries       | List       | List of three character country codes.
 | startFundingDate| DatePicker | Start funding date.
-| endFundingDate  | DatePicker | End funding date.
+| endFundingDate  | DatePicker | End funding date.Use only with startFundingDate.
 | investorIds     | List       | List of investor ids.
 | investorSlugs   | List       | List of investor slugs, see Investors to get a list of all investors.
-| series          | Select     | End funding date.
+| series          | Select     | List of series.
 | page            | Number     | The page of items from the result set to return.
 | perPage         | Number     | The numbers of items to return per page.
 

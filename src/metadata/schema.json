@@ -127,7 +127,7 @@
                 {
                     "name": "endAddedDate",
                     "type": "DatePicker",
-                    "info": "The date the company ended being tracked by Mattermark. ",
+                    "info": "The date the company ended being tracked by Mattermark.",
                     "required": false
                 },
                 {
@@ -747,7 +747,7 @@
                 {
                     "name": "endFundingDate",
                     "type": "DatePicker",
-                    "info": "End funding date.",
+                    "info": "End funding date.Use only with startFundingDate.",
                     "required": false
                 },
                 {
@@ -797,7 +797,7 @@
                         "private_equity",
                         "undisclosed"
                     ],
-                    "info": "End funding date.",
+                    "info": "List of series.",
                     "required": false
                 },
                 {
